@@ -13,5 +13,13 @@ export const MongoHelper = {
 
   getCollection (name: string): Collection {
     return this.client.db().collection(name)
+  },
+
+  map: (collectionData: any, result): any => {
+    const collection: any = {
+      id: result.insertedId as unknown as string,
+      ...collectionData
+    }
+    return collection
   }
 }
