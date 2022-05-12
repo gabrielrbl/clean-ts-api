@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   mongodbMemoryServerOptions: {
     binary: {
       version: '4.0.3',
