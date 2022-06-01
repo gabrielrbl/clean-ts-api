@@ -107,8 +107,12 @@ describe('DbAuthentication UseCase', () => {
   test('Should return null if LoadAccountByEmailRepository returns null', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
     jest
-      .spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockImplementationOnce(
-        async () => await new Promise((resolve) => resolve(null as unknown as AccountModel))
+      .spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
+      .mockImplementationOnce(
+        async () =>
+          await new Promise((resolve) =>
+            resolve(null as unknown as AccountModel)
+          )
       )
 
     const accessToken = await sut.auth(makeFaceAuthentication())
@@ -168,7 +172,10 @@ describe('DbAuthentication UseCase', () => {
 
   test('Should call UpdateAccessTokenRepository with correct values', async () => {
     const { sut, updateAccessTokenRepositoryStub } = makeSut()
-    const updateSpy = jest.spyOn(updateAccessTokenRepositoryStub, 'updateAccessToken')
+    const updateSpy = jest.spyOn(
+      updateAccessTokenRepositoryStub,
+      'updateAccessToken'
+    )
     await sut.auth(makeFaceAuthentication())
     expect(updateSpy).toHaveBeenCalledWith('any_id', 'any_token')
   })
