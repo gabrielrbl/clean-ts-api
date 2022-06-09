@@ -12,12 +12,14 @@ services:
 
   api:
     container_name: api-container
-    build: .
-    image: clean-node-api
+    image: node:16
+    working_dir: /usr/src/clean-node-api
     restart: always
-    command: npm run debug
+    command: bash -c "npm ci --omit=dev --ignore-scripts && npm rebuild bcrypt --build-from-source && npm run debug"
     volumes:
       - ./dist/:/usr/src/clean-node-api/dist
+      - ./package.json:/usr/src/clean-node-api/package.json
+      - ./package-lock.json:/usr/src/clean-node-api/package-lock.json
       - /usr/src/clean-node-api/node_modules
     ports:
       - "5050:5050"
