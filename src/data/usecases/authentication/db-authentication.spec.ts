@@ -23,7 +23,7 @@ const makeFaceAuthentication = (): AuthenticationModel => ({
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub
   implements LoadAccountByEmailRepository {
-    async loadByEmail (email: string): Promise<AccountModel> {
+    async loadByEmail (email: string): Promise<AccountModel | null> {
       return await new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -41,7 +41,7 @@ const makeHashComparer = (): HashComparer => {
 
 const makeEncrypter = (): Encrypter => {
   class EncrypterStub implements Encrypter {
-    async encrypt (value: string): Promise<string> {
+    async encrypt (value: string): Promise<string | null> {
       return await new Promise((resolve) => resolve('any_token'))
     }
   }
@@ -108,12 +108,7 @@ describe('DbAuthentication UseCase', () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
     jest
       .spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
-      .mockImplementationOnce(
-        async () =>
-          await new Promise((resolve) =>
-            resolve(null as unknown as AccountModel)
-          )
-      )
+      .mockReturnValueOnce(new Promise((resolve) => resolve(null)))
 
     const accessToken = await sut.auth(makeFaceAuthentication())
     expect(accessToken).toBeNull()
