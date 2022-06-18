@@ -1,3 +1,6 @@
+[![Build Status](https://app.travis-ci.com/gabrielrbl/clean-ts-api.svg?branch=master)](https://app.travis-ci.com/gabrielrbl/clean-ts-api)
+[![Coverage Status](https://coveralls.io/repos/github/gabrielrbl/clean-ts-api/badge.svg?branch=master)](https://coveralls.io/github/gabrielrbl/clean-ts-api?branch=master)
+
 # **Clean Node API**
 
 Essa API faz parte do treinamento do professor Rodrigo Manguinho (Mango) na Udemy.
