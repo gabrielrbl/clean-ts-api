@@ -18,7 +18,7 @@ implements
     return MongoHelper.map(accountData)
   }
 
-  async loadByEmail (email: string): Promise<AccountModel | null> {
+  async loadByEmail (email: string): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({ email })
     return account && MongoHelper.map(account)
@@ -39,7 +39,7 @@ implements
   async loadByToken (
     token: string,
     role?: string
-  ): Promise<AccountModel | null> {
+  ): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({
       accessToken: token,
