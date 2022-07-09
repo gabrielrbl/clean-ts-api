@@ -1,6 +1,6 @@
 import {
   AddSurvey,
-  AddSurveyModel,
+  AddSurveyParams,
   HttpRequest,
   Validation
 } from './add-survey-controller-protocols'
@@ -36,7 +36,7 @@ const makeValidation = (): Validation => {
 
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
-    async add (data: AddSurveyModel): Promise<void> {
+    async add (data: AddSurveyParams): Promise<void> {
       return await new Promise((resolve) => resolve())
     }
   }
