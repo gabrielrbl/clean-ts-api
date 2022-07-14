@@ -13,7 +13,7 @@ import { mockAccountModel } from '@/domain/test'
 export const mockAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add (account: AddAccountParams): Promise<AccountModel> {
-      return await new Promise((resolve) => resolve(mockAccountModel()))
+      return await Promise.resolve(mockAccountModel())
     }
   }
   return new AddAccountStub()
@@ -22,7 +22,7 @@ export const mockAddAccount = (): AddAccount => {
 export const mockAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
     async auth (authentication: AuthenticationParams): Promise<string> {
-      return await new Promise((resolve) => resolve('any_token'))
+      return await Promise.resolve('any_token')
     }
   }
   return new AuthenticationStub()
@@ -31,7 +31,7 @@ export const mockAuthentication = (): Authentication => {
 export const mockLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     async load (accessToken: string, role?: string): Promise<AccountModel> {
-      return await new Promise((resolve) => resolve(mockAccountModel()))
+      return await Promise.resolve(mockAccountModel())
     }
   }
   return new LoadAccountByTokenStub()
