@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "description": "NodeJs Rest API using TDD, Clean Architecture and Typescript",
   "author": "Gabriel Lobo",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "repository": "github:gabrielrbl/clean-ts-api",
   "scripts": {
     "start": "node dist/main/server.js",
