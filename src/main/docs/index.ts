@@ -1,4 +1,4 @@
-import { loginPath, signUpPath, surveyPath } from './paths'
+import { loginPath, signUpPath, surveyPath, surveyResultPath } from './paths'
 import {
   badRequest,
   forbidden,
@@ -11,9 +11,11 @@ import {
   addSurveyParamsSchema,
   apiKeyAuth,
   loginParamsSchema,
+  saveSurveyParamsSchema,
   signUpParamsSchema,
   errorSchema,
   surveyAnswerSchema,
+  surveyResultSchema,
   surveySchema,
   surveysSchema
 } from './schemas'
@@ -32,14 +34,21 @@ export default {
   },
   servers: [{ url: '/api' }],
   tags: [{ name: 'Login' }, { name: 'Enquete' }],
-  paths: { '/login': loginPath, '/signup': signUpPath, '/surveys': surveyPath },
+  paths: {
+    '/login': loginPath,
+    '/signup': signUpPath,
+    '/surveys': surveyPath,
+    '/surveys/{surveyId}/results': surveyResultPath
+  },
   schemas: {
     account: accountSchema,
     addSurveyParams: addSurveyParamsSchema,
     error: errorSchema,
     loginParams: loginParamsSchema,
+    saveSurveyParams: saveSurveyParamsSchema,
     signUpParams: signUpParamsSchema,
     surveyAnswer: surveyAnswerSchema,
+    surveyResult: surveyResultSchema,
     survey: surveySchema,
     surveys: surveysSchema
   },
