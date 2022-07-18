@@ -8,6 +8,7 @@ import {
 } from './components'
 import {
   accountSchema,
+  addSurveyParamsSchema,
   apiKeyAuth,
   loginParamsSchema,
   signUpParamsSchema,
@@ -34,9 +35,10 @@ export default {
   paths: { '/login': loginPath, '/signup': signUpPath, '/surveys': surveyPath },
   schemas: {
     account: accountSchema,
+    addSurveyParams: addSurveyParamsSchema,
+    error: errorSchema,
     loginParams: loginParamsSchema,
     signUpParams: signUpParamsSchema,
-    error: errorSchema,
     surveyAnswer: surveyAnswerSchema,
     survey: surveySchema,
     surveys: surveysSchema
