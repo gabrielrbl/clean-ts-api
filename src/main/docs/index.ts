@@ -1,6 +1,20 @@
-import { loginPath } from './paths'
-import { badRequest, notFound, serverError, unauthorized } from './components'
-import { accountSchema, loginParamsSchema, errorSchema } from './schemas'
+import { loginPath, surveyPath } from './paths'
+import {
+  badRequest,
+  forbidden,
+  notFound,
+  serverError,
+  unauthorized
+} from './components'
+import {
+  accountSchema,
+  apiKeyAuth,
+  loginParamsSchema,
+  errorSchema,
+  surveyAnswerSchema,
+  surveySchema,
+  surveysSchema
+} from './schemas'
 
 export default {
   openapi: '3.0.0',
@@ -14,26 +28,23 @@ export default {
     name: 'GPL-3.0',
     url: 'https://www.gnu.org/licenses/gpl-3.0.html'
   },
-  servers: [
-    {
-      url: '/api'
-    }
-  ],
-  tags: [
-    {
-      name: 'Login'
-    }
-  ],
-  paths: {
-    '/login': loginPath
-  },
+  servers: [{ url: '/api' }],
+  tags: [{ name: 'Login' }, { name: 'Enquete' }],
+  paths: { '/login': loginPath, '/surveys': surveyPath },
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
-    error: errorSchema
+    error: errorSchema,
+    surveyAnswer: surveyAnswerSchema,
+    survey: surveySchema,
+    surveys: surveysSchema
   },
   components: {
+    securitySchemes: {
+      apiKeyAuth
+    },
     badRequest,
+    forbidden,
     notFound,
     serverError,
     unauthorized
