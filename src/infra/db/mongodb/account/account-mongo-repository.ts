@@ -12,10 +12,10 @@ implements
     LoadAccountByEmailRepository,
     UpdateAccessTokenRepository,
     LoadAccountByTokenRepository {
-  async add (accountData: AddAccountParams): Promise<AccountModel> {
+  async add (data: AddAccountParams): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts')
-    await accountCollection.insertOne(accountData)
-    return MongoHelper.map(accountData)
+    await accountCollection.insertOne(data)
+    return MongoHelper.map(data)
   }
 
   async loadByEmail (email: string): Promise<AccountModel> {
@@ -27,7 +27,9 @@ implements
   async updateAccessToken (id: string, token: string): Promise<void> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     await accountCollection.updateOne(
-      { _id: id },
+      {
+        _id: id
+      },
       {
         $set: {
           accessToken: token
@@ -36,14 +38,18 @@ implements
     )
   }
 
-  async loadByToken (
-    token: string,
-    role?: string
-  ): Promise<AccountModel> {
+  async loadByToken (token: string, role?: string): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({
       accessToken: token,
-      $or: [{ role: role }, { role: 'admin' }]
+      $or: [
+        {
+          role
+        },
+        {
+          role: 'admin'
+        }
+      ]
     })
     return account && MongoHelper.map(account)
   }

@@ -6,44 +6,48 @@ import { AddAccountParams } from '@/domain/usecases/account/add-account'
 import { AccountModel } from '@/domain/models/account'
 import { mockAccountModel } from '@/domain/test'
 
-export const mockAddAccountRepository = (): AddAccountRepository => {
-  class AddAccountRepositoryStub implements AddAccountRepository {
-    async add (accountData: AddAccountParams): Promise<AccountModel> {
-      return await Promise.resolve(mockAccountModel())
-    }
+export class AddAccountRepositorySpy implements AddAccountRepository {
+  accountModel = mockAccountModel()
+  addAccountParams: AddAccountParams
+
+  async add (data: AddAccountParams): Promise<AccountModel> {
+    this.addAccountParams = data
+    return await Promise.resolve(this.accountModel)
   }
-  return new AddAccountRepositoryStub()
 }
 
-export const mockLoadAccountByEmailRepository =
-  (): LoadAccountByEmailRepository => {
-    class LoadAccountByEmailRepositoryStub
-    implements LoadAccountByEmailRepository {
-      async loadByEmail (email: string): Promise<AccountModel> {
-        return await Promise.resolve(mockAccountModel())
-      }
-    }
-    return new LoadAccountByEmailRepositoryStub()
-  }
+export class LoadAccountByEmailRepositorySpy
+implements LoadAccountByEmailRepository {
+  accountModel = mockAccountModel()
+  email: string
 
-export const mockLoadAccountByTokenRepository =
-  (): LoadAccountByTokenRepository => {
-    class LoadAccountByTokenRepositoryStub
-    implements LoadAccountByTokenRepository {
-      async loadByToken (token: string, role?: string): Promise<AccountModel> {
-        return await Promise.resolve(mockAccountModel())
-      }
-    }
-    return new LoadAccountByTokenRepositoryStub()
+  async loadByEmail (email: string): Promise<AccountModel> {
+    this.email = email
+    return await Promise.resolve(this.accountModel)
   }
+}
 
-export const mockUpdateAccessTokenRepository =
-  (): UpdateAccessTokenRepository => {
-    class UpdateAccessTokenRepositoryStub
-    implements UpdateAccessTokenRepository {
-      async updateAccessToken (id: string, token: string): Promise<void> {
-        return await Promise.resolve()
-      }
-    }
-    return new UpdateAccessTokenRepositoryStub()
+export class LoadAccountByTokenRepositorySpy
+implements LoadAccountByTokenRepository {
+  accountModel = mockAccountModel()
+  token: string
+  role: string
+
+  async loadByToken (token: string, role?: string): Promise<AccountModel> {
+    this.token = token
+    this.role = role
+    return await Promise.resolve(this.accountModel)
   }
+}
+
+export class UpdateAccessTokenRepositorySpy
+implements UpdateAccessTokenRepository {
+  id: string
+  token: string
+
+  async updateAccessToken (id: string, token: string): Promise<void> {
+    this.id = id
+    this.token = token
+    return await Promise.resolve()
+  }
+}
